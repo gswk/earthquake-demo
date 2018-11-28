@@ -1,0 +1,14 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: ContainerSource
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: time-eventsource
+spec:
+  image: docker.io/gswk/usgs-event-source:latest
+  args: 
+    - "--interval=10"
+  sink:
+    apiVersion: serving.knative.dev/v1alpha1
+    kind: Service
+    name: logger
