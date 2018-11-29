@@ -10,3 +10,12 @@ spec:
         spec:
           container:
             image: docker.io/gswk/geocoder
+            env:
+            - name: DB_HOST
+              value: "geocodedb-postgresql.default.svc.cluster.local"
+            - name: DB_DATABASE
+              value: "geocode"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASS
+              value: "devPass"
