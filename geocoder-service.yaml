@@ -6,6 +6,17 @@ metadata:
 spec:
   runLatest:
     configuration:
+      build:
+        serviceAccountName: build-bot
+        source:
+          git:
+           url: https://github.com/gswk/geocoder.git
+           revision: master
+        template:
+          name: kaniko
+          arguments:
+          - name: IMAGE
+            value: docker.io/gswk/geocoder
       revisionTemplate:
         spec:
           container:

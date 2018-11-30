@@ -3,7 +3,7 @@ kind: ContainerSource
 metadata:
   labels:
     controller-tools.k8s.io: "1.0"
-  name: time-eventsource
+  name: usgs-event-source
 spec:
   image: docker.io/gswk/usgs-event-source:latest
   args: 
