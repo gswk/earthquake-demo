@@ -9,6 +9,6 @@ spec:
   args: 
     - "--interval=10"
   sink:
-    apiVersion: eventing.knative.dev/v1alpha1
-    kind: Channel
-    name: geocode-channel
+    apiVersion: serving.knative.dev/v1alpha1
+    kind: Service
+    name: geocoder
