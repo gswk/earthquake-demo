@@ -59,3 +59,47 @@ Once updated, we can apply our [geocoder-service.yaml](geocoder-service.yaml) fi
 ```
 kubectl apply -f geocoder-service.yaml
 ```
+
+Deploy the Frontend
+---
+
+Just like the Geocode service, we'll update both instances of `docker.io/gswk/earthquake-demo-frontend` in the [frontend-service.yaml](frontend-service.yaml) file to a container registry you have access to. Once that's done, we can also apply the [frontend-service.yaml](frontend-service.yaml) file to deploy our Frontend. Note the `env` section of this file, which has an `EVENTS_API` environment variable. This is how our frontend knows about our geocoder service.
+
+```
+kubectl apply -f frontend-service.yaml
+```
+
+Deploy the USGS Event Source
+---
+
+Finally, we need to deploy our event source to poll the USGS data feed. For this, we can either build and push up the container image to a container registry of our own, or use the [pre-built one made available in the GSWK Docker Hub org](https://hub.docker.com/r/gswk/usgs-event-source). If you'd like to build it yourself, you can do so easily by cloning the [USGS Event Source](https://github.com/gswk/usgs-event-source) source code, navigating to that directory, and running:
+
+```
+docker build . -t <USERNAME>/usgs-event-source
+docker push <USERNAME>/usgs-event-source
+```
+
+Once done, and after updating the `image` path in the [usgs-event-source.yaml](usgs-event-source.yaml) file, we can apply it just like we've deployed each previous component:
+
+```
+kubectl apply -f usgs-event-source.yaml
+```
+
+Accessing Our Application
+---
+
+Finally, with everything deployed, we can access our running application. There's a couple options we have, including [setting up a custom domain](https://github.com/knative/docs/blob/master/serving/using-a-custom-domain.md) that we could use to make our application accessible over the internet. For our case though, we'll setup a local DNS entry to resolve the route that Knative gives our application to resolve to the ingress gateway that Knative sets up at install time. First, let's get the IP address of our ingress gateway:
+
+```
+export INGRESS_IP=`kubectl get svc istio-ingressgateway -n istio-system -o jsonpath="{.status.loadBalancer.ingress[*].ip}"`
+```
+
+We can then add a route to our Geoquake frontend service. By default, the route will be in the format `{SERVICE NAME}.{NAMESPACE}.example.com`, making our route `geoquake.default.example.com`. With our IP and route, we can append a line to our `hosts` file like so:
+
+```
+echo "$INGRESS_IP geoquake.default.example.com" | sudo tee -a /etc/hosts
+```
+
+All of this complete, we can finally access our application in the browser at [http://geoquake.default.example.com](http://geoquake.default.example.com/)! The first request may take a few seconds to respond as Knative spins down functions that don't receive traffic after awhile, but after that requests should be much quicker.
+
+![UI of our running application](images/frontend-ui.png)
