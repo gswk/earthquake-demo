@@ -1,0 +1,15 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: earthquake-build
+spec:
+  serviceAccountName: build-bot
+  source:
+    git:
+      url: https://github.com/bryanfriedman/earthquake-demo-frontend.git
+      revision: master
+  template:
+    name: buildpack
+    arguments:
+      - name: IMAGE
+        value: docker.io/gswk/earthquake-demo-frontend
