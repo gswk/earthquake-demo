@@ -11,16 +11,16 @@ spec:
         source:
           git:
             url: https://github.com/gswk/earthquake-demo-frontend.git
-            revision: master
+            revision: flood
         template:
-          name: kaniko
+          name: buildpack
           arguments:
           - name: IMAGE
-            value: docker.io/gswk/earthquake-demo-frontend
+            value: docker.io/gswk/earthquake-demo-frontend:flood
       revisionTemplate:
         spec:
           container:
-            image: docker.io/gswk/earthquake-demo-frontend
+            image: docker.io/gswk/earthquake-demo-frontend:flood
             env:
             - name: EVENTS_API
               value: "http://geocoder.default.svc.cluster.local"

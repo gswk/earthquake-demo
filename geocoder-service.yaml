@@ -11,16 +11,16 @@ spec:
         source:
           git:
            url: https://github.com/gswk/geocoder.git
-           revision: master
+           revision: flood
         template:
           name: kaniko
           arguments:
           - name: IMAGE
-            value: docker.io/gswk/geocoder
+            value: docker.io/gswk/geocoder:flood
       revisionTemplate:
         spec:
           container:
-            image: docker.io/gswk/geocoder
+            image: docker.io/gswk/geocoder:flood
             env:
             - name: DB_HOST
               value: "geocodedb-postgresql.default.svc.cluster.local"

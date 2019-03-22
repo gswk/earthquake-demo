@@ -5,7 +5,7 @@ metadata:
     controller-tools.k8s.io: "1.0"
   name: usgs-event-source
 spec:
-  image: docker.io/gswk/usgs-event-source:latest
+  image: docker.io/gswk/usgs-event-source:flood
   args: 
     - "--interval=10"
   sink:
