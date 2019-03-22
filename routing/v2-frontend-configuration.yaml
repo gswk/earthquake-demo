@@ -1,0 +1,24 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Configuration
+metadata:
+  name: earthquake-demo
+  namespace: default
+spec:
+  build:
+    serviceAccountName: build-bot
+    source:
+      git:
+        url: https://github.com/gswk/earthquake-demo-frontend.git
+        revision: flood
+    template:
+      name: buildpack
+      arguments:
+      - name: IMAGE
+        value: docker.io/gswk/earthquake-demo-frontend:flood
+  revisionTemplate:
+    spec:
+      container:
+        image: docker.io/gswk/earthquake-demo-frontend:flood
+        env:
+        - name: EVENTS_API
+          value: "http://geocoder.default.dev.gswkbook.com/"

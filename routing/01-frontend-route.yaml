@@ -1,0 +1,10 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Route
+metadata:
+  name: earthquake-demo-routing
+  namespace: default
+spec:
+  traffic:
+  - revisionName: earthquake-demo-00001
+    name: v1 #quake-only
+    percent: 100
