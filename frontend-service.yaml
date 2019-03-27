@@ -21,6 +21,7 @@ spec:
         spec:
           container:
             image: docker.io/gswk/earthquake-demo-frontend
+            imagePullPolicy: Always
             env:
             - name: EVENTS_API
               value: "http://geocoder.default.svc.cluster.local"
