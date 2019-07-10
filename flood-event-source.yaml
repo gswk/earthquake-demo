@@ -1,0 +1,14 @@
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: ContainerSource
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: flood-source
+spec:
+  image: docker.io/gswk/flood-source:tmp
+  args: 
+    - "--interval=10"
+  sink:
+    apiVersion: serving.knative.dev/v1alpha1
+    kind: Service
+    name: geocoder

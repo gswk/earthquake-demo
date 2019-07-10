@@ -103,3 +103,38 @@ echo "$INGRESS_IP geoquake.default.example.com" | sudo tee -a /etc/hosts
 All of this complete, we can finally access our application in the browser at [http://geoquake.default.example.com](http://geoquake.default.example.com/)! The first request may take a few seconds to respond as Knative spins down functions that don't receive traffic after awhile, but after that requests should be much quicker.
 
 ![UI of our running application](images/frontend-ui.png)
+
+
+Demo Script
+---
+
+**Reset**
+
+```
+kubectl delete -f frontend-service.yaml
+kubectl delete -f flood-event-source.yaml
+git checkout master
+kubectl apply -f frontend-service.yaml
+```
+
+**Clear Events from PSQL**
+
+```
+kubectl exec -it geocodedb-postgresql-0 -- /bin/bash
+PGPASSWORD="devPass" psql --host 127.0.0.1 -U postgres geocode
+delete from events where type = 'flood';
+```
+
+**Build + Serve**
+
+```
+git checkout flood
+kubectl apply -f frontend-service.yaml
+kubectl logs POD_NAME -c build-step-build-and-push -f
+```
+
+**Eventing**
+
+```
+kubectl apply -f flood-event-source.yaml
+```
