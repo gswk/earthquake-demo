@@ -1,0 +1,15 @@
+apiVersion: build.pivotal.io/v1alpha1
+kind: Image
+metadata:
+  name: earthquake-demo-frontend
+spec:
+  serviceAccount: build-bot
+  builderRef: buildpack-builder
+  image: docker.io/gswk/earthquake-demo-frontend
+  cacheSize: "1.5Gi"
+  failedBuildHistoryLimit: 5
+  successBuildHistoryLimit: 5
+  source:
+    git:
+      url: https://github.com/gswk/earthquake-demo-frontend.git
+      revision: master
