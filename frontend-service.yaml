@@ -6,25 +6,11 @@ metadata:
 spec:
   runLatest:
     configuration:
-      build:
-        serviceAccountName: build-bot
-        source:
-          git:
-            url: https://github.com/gswk/earthquake-demo-frontend.git
-            revision: flood
-        template:
-          name: buildpack
-          arguments:
-          - name: IMAGE
-            value: docker.io/gswk/earthquake-demo-frontend:flood
       revisionTemplate:
-        metadata:
-          annotations:
-            autoscaling.knative.dev/minScale: "1"
         spec:
           container:
             image: docker.io/gswk/earthquake-demo-frontend:flood
             imagePullPolicy: Always
             env:
             - name: EVENTS_API
-              value: "http://geocoder.default.svc.cluster.local"
+              value: "http://geocoder.default.dev.gswkbook.com/"
