@@ -11,5 +11,5 @@ spec:
   successBuildHistoryLimit: 5
   source:
     git:
-      url: https://github.com/gswk/earthquake-demo-frontend.git
+      url: https://github.com/gswk/earthquake-demo-frontend-node.git
       revision: master
