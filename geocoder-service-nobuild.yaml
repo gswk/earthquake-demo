@@ -1,0 +1,21 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: geocoder
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/gswk/geocoder:oscon
+            env:
+            - name: DB_HOST
+              value: "geocodedb-postgresql.default.svc.cluster.local"
+            - name: DB_DATABASE
+              value: "geocode"
+            - name: DB_USER
+              value: "postgres"
+            - name: DB_PASS
+              value: "devPass"
