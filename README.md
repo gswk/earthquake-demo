@@ -72,6 +72,18 @@ kubectl apply -f frontend-service.yaml
 Deploy the USGS Event Source
 ---
 
+Before we can spin up the custom even source, we need a place to send the events that will be created. The latest version of Knative provides an easy way to do this by creating a broker, a sink for evenr sources to emit their events to. We can set this up easily with adding one label to our namespace:
+
+```
+kubectl label namespace default knative-eventing-injection=enabled
+```
+
+This will set up the default event broker, and from here we just need a Trigger to tell the broker where to send events, which we can create from the [usgs-trigger.yaml](usgs-trigger.yaml) file:
+
+```
+kubectl apply -f usgs-trigger.yaml
+```
+
 Finally, we need to deploy our event source to poll the USGS data feed. For this, we can either build and push up the container image to a container registry of our own, or use the [pre-built one made available in the GSWK Docker Hub org](https://hub.docker.com/r/gswk/usgs-event-source). If you'd like to build it yourself, you can do so easily by cloning the [USGS Event Source](https://github.com/gswk/usgs-event-source) source code, navigating to that directory, and running:
 
 ```
