@@ -8,8 +8,9 @@ spec:
     configuration:
       revisionTemplate:
         spec:
+          containerConcurrency: 1
           container:
-            image: docker.io/gswk/geocoder:oscon
+            image: docker.io/gswk/geocoder:oscon4
             env:
             - name: DB_HOST
               value: "geocodedb-postgresql.default.svc.cluster.local"
