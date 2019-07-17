@@ -5,7 +5,7 @@ metadata:
 spec:
   serviceAccount: build-bot
   builderRef: buildpack-builder
-  image: docker.io/gswk/earthquake-demo-frontend
+  image: docker.io/gswk/earthquake-demo-frontend:flood
   cacheSize: "1.5Gi"
   failedBuildHistoryLimit: 5
   successBuildHistoryLimit: 5
