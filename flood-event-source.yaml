@@ -5,7 +5,7 @@ metadata:
     controller-tools.k8s.io: "1.0"
   name: flood-source
 spec:
-  image: docker.io/gswk/flood-source:oscon
+  image: docker.io/gswk/flood-source:osconfix
   args: 
     - "--interval=10"
   sink:
