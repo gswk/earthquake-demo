@@ -9,7 +9,7 @@ spec:
       revisionTemplate:
         spec:
           container:
-            image: docker.io/gswk/earthquake-demo-frontend:latest
+            image: docker.io/gswk/earthquake-demo-frontend:oscon
             imagePullPolicy: Always
             env:
             - name: EVENTS_API
